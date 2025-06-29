@@ -201,6 +201,19 @@ main {
   margin-top: 125px; /* ou plus si les barres sont plus hautes */
 }
 
+@keyframes clignoter {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3; /* fait "s'effacer" vers le blanc du fond */
+  }
+}
+
+.blinking {
+  color: red;
+  animation: clignoter 1s infinite;
+}
 /* === HOME CONTAIN === */
 #home-content p {
   font-size: 1.2rem;
@@ -430,5 +443,3 @@ textarea {
   display: block;
   margin: 10px 0;
 }
-
-
