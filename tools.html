@@ -75,7 +75,7 @@ function openCameraPopup() {
       <canvas id="canvas" style="display:none;"></canvas>
       <script>
         let stream = null;
-        navigator.mediaDevices.getUserMedia({ video: true }).then((mediaStream) => {
+	navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then((mediaStream) => {
           stream = mediaStream;
           const video = document.getElementById('video');
           video.srcObject = stream;
