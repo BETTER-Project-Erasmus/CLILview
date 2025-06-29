@@ -75,7 +75,8 @@ function openCameraPopup() {
       <canvas id="canvas" style="display:none;"></canvas>
       <script>
         let stream = null;
-	navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then((mediaStream) => {
+
+        function startVideo(mediaStream) {
           stream = mediaStream;
           const video = document.getElementById('video');
           video.srcObject = stream;
@@ -96,9 +97,19 @@ function openCameraPopup() {
 
             setTimeout(() => window.close(), 2000);
           }, 1000);
-        }).catch((err) => {
-          document.body.innerHTML = '<p style="color:red;">Camera error: ' + err.message + '</p>';
-        });
+        }
+
+        // Try to use the rear camera first
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } })
+          .then(startVideo)
+          .catch((err) => {
+            // Fallback to default camera if rear not available
+            navigator.mediaDevices.getUserMedia({ video: true })
+              .then(startVideo)
+              .catch((error) => {
+                document.body.innerHTML = '<p style="color:red;">Camera error: ' + error.message + '</p>';
+              });
+          });
       <\/script>
     </body>
     </html>
