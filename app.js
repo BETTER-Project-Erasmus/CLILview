@@ -202,9 +202,17 @@ function loadTools() {
       const btnStart = toolsContainer.querySelector('#btnStartRecording');
       const btnStop = toolsContainer.querySelector('#btnStopRecording');
 
-      if (btnStart) btnStart.addEventListener('click', startRecording);
-      if (btnStop) btnStop.addEventListener('click', stopRecording);
+      if (btnStart && btnStop) {
+		btnStart.addEventListener('click', () => {
+		  btnStart.classList.add('blinking');
+		  startRecording();
+		});
 
+		btnStop.addEventListener('click', () => {
+		  btnStart.classList.remove('blinking');
+		  stopRecording();
+		});
+	  }
       updateTimerDisplays();
     })
     .catch(err => console.error('Erreur loading tools:', err));
