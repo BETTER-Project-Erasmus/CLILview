@@ -58,6 +58,7 @@
 function openCameraPopup() {
   const popup = window.open('', '_blank', 'width=700,height=550');
 
+  popup.document.open();
   popup.document.write(`<!DOCTYPE html>
 <html>
 <head>
@@ -140,5 +141,6 @@ function openCameraPopup() {
   <\/script>
 </body>
 </html>`);
+  popup.document.close();
 }
 </script>
