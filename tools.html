@@ -1,0 +1,109 @@
+<div class="tools-bar">
+
+  <!-- 🕒 Timers -->
+ <div id="timers">
+  <div class="timer-container">
+    <span class="material-icons teacher-icon">school</span>
+    <span class="timer-label">Teacher</span>
+    <span id="teacher-timer">00:00</span>
+    <button id="teacher-start"><span class="material-icons">play_arrow</span></button>
+    <button id="teacher-pause"><span class="material-icons">pause</span></button>
+  </div>
+  <div class="timer-container">
+    <span class="material-icons students-icon">group</span>
+    <span class="timer-label">Students</span>
+    <span id="students-timer">00:00</span>
+	<button id="students-start"><span class="material-icons">play_arrow</span></button>
+	<button id="students-pause"><span class="material-icons">pause</span></button>
+  </div>
+</div>
+
+
+  <!-- 🎤 Audio buttons -->
+  <div class="audio-controls container">
+  <button id="btnStartRecording">
+    <span class="material-icons" style="color: red;">fiber_manual_record</span>
+    Start
+  </button>
+
+  <button id="btnStopRecording">
+    <span class="material-icons">stop</span>
+    Stop
+  </button>
+  
+  <button id="btnSaveRecording" style="display: none;">
+    <span class="material-icons">save</span>
+    Save
+  </button>
+  
+  <button id="btnResetRecording">
+  <span class="material-icons">restart_alt</span>
+  Reset
+</button>
+  
+  <audio controls id="audioPlayback"></audio>
+
+  </div>
+
+
+<!-- 📸 Photo capture -->
+	<div class="photo-controls container">
+	   <button onclick="openCameraPopup()">
+       <span class="material-icons">photo_camera</span>
+       Take a photo
+       </button>
+	</div>
+
+</div>
+
+<script>
+function openCameraPopup() {
+  const popup = window.open('', '_blank', 'width=700,height=550');
+
+  popup.document.write(`
+    <html>
+    <head>
+      <title>Take Photo</title>
+      <style>
+        body { text-align: center; font-family: sans-serif; margin-top: 20px; }
+        video { width: 640px; height: auto; border-radius: 10px; }
+      </style>
+    </head>
+    <body>
+      <h2>Smile! 📸</h2>
+      <video id="video" autoplay></video>
+      <canvas id="canvas" style="display:none;"></canvas>
+      <script>
+        let stream = null;
+        navigator.mediaDevices.getUserMedia({ video: true }).then((mediaStream) => {
+          stream = mediaStream;
+          const video = document.getElementById('video');
+          video.srcObject = stream;
+
+          setTimeout(() => {
+            const canvas = document.getElementById('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+
+            stream.getTracks().forEach(track => track.stop());
+
+            const dataUrl = canvas.toDataURL('image/jpeg');
+            const link = document.createElement('a');
+            link.href = dataUrl;
+            link.download = 'photo_' + new Date().toISOString().replace(/[:.]/g, '-') + '.jpg';
+            link.click();
+
+            setTimeout(() => window.close(), 2000);
+          }, 1000);
+        }).catch((err) => {
+          document.body.innerHTML = '<p style="color:red;">Camera error: ' + err.message + '</p>';
+        });
+      <\/script>
+    </body>
+    </html>
+  `);
+}
+</script>
+
+

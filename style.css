@@ -1,0 +1,434 @@
+/* === BASE === */
+body {
+  font-family: 'Roboto Slab', serif;
+  margin: 0;
+  padding-bottom: 80px; /* espace pour timers éventuels */
+  background: #fff;
+}
+
+/* === HEADER === */
+header {
+  background-color: #0d4b9f;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header-container h1 {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 1.8em;
+  margin: 0;
+}
+
+.logo-container {
+  flex-shrink: 0;
+}
+
+.logo-container img.logo {
+  height: 100px;
+  object-fit: contain;
+}
+
+/* === NAVIGATION MENU === */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px;
+  background: #5d9cf0;
+  border-bottom: 1px solid #5d9cf0;
+}
+
+
+.navbar button {
+  background: #fae17a;
+  border: none;
+  padding: 12px 18px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.3s ease;
+}
+
+.navbar button:hover,
+.navbar button.active {
+  background: #ffd000;
+}
+
+.navbar .material-icons {
+  font-size: 40px;
+  color: #FFC300; /* ou #FFC300 pour garder la cohérence visuelle */
+}
+
+
+
+/* === TOOLBAR === */
+.tools-bar {
+  position: fixed;
+  top: 60px; /* ou ajuste selon la hauteur du menu principal */
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  height:75px;
+
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding: 5px 10px;
+  background: #5d9cf0;
+  border-bottom: 1px solid #ccc;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+
+.tool {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end; /* si besoin, renforce l’alignement bas */
+  height: 100%
+  margin: 0 10px;
+}
+
+
+.tool i {
+  font-size: 36px;
+  color: #0d4b9f;
+}
+
+.tool span {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+.round-button {
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: blue;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.round-button:hover {
+  filter: brightness(1.1);
+}
+
+.audio-controls .material-icons {
+  font-size: 24px;
+  vertical-align: middle;
+}
+
+.audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+  flex-wrap: wrap; /* au cas où l'écran est étroit */
+}
+
+.audio-controls button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: 'Roboto Slab', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.audio-controls button:hover {
+  background-color: #e0e0e0;
+}
+
+.audio-controls .material-icons {
+  font-size: 20px;
+}
+
+
+/* === MAIN CONTENT === */
+main {
+  padding-top: 150px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.page {
+  display: none;
+  padding: 20px;
+}
+
+.visible {
+  display: block;
+}
+
+.container {
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+#content {
+  margin-top: 125px; /* ou plus si les barres sont plus hautes */
+}
+
+/* === HOME CONTAIN === */
+#home-content p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* === FORMS === */
+form label {
+  display: block;
+  margin-top: 1.2em;
+  font-weight: bold;
+}
+
+form input {
+  width: 100%;
+  padding: 0.5em;
+  margin-top: 0.3em;
+}
+
+textarea {
+  width: 100%;
+  margin-bottom: 15px;
+  font-family: 'Roboto Slab', serif;
+}
+
+/* === TIMERS === */
+#timers {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 200px;
+  padding: 10px 20px;
+  background: white;
+  border-top: 1px solid #ccc;
+  font-weight: bold;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+.timer-container {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+
+.timer-label {
+  margin: 0 10px;
+  font-family: 'Roboto Slab', serif;
+}
+
+.timer-container button {
+  margin-left: 10px;
+  font-size: 1.4rem;
+  padding: 8px 16px;
+  cursor: pointer;
+  background-color: #0d4b9f;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-family: 'Roboto Slab', serif;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.timer-container button:hover {
+  background-color: #093471;
+  transform: scale(1.05);
+}
+
+.timer-container button:active {
+  transform: scale(0.98);
+}
+
+#students-start, #students-pause {
+  background-color: #ffde59;
+  color: #000;
+}
+
+#students-start:hover, #students-pause:hover {
+  background-color: #e6c800;
+}
+
+#teacher-timer {
+  color: #0d4b9f;
+}
+
+#students-timer {
+  color: #ffde59;
+}
+
+.timer-container .teacher-icon {
+  color: #0d4b9f;
+}
+
+.timer-container .students-icon {
+  color: #ffde59;
+}
+
+.timer-container .teacher-icon,
+.timer-container .students-icon {
+  font-size: 2rem; /* taille agrandie des icônes */
+}
+
+.timer-container button .material-icons {
+  font-size: 1.8rem;
+  vertical-align: middle;
+}
+
+#students-start .material-icons,
+#students-pause .material-icons {
+  color: #0d4b9f;
+}
+
+/* === ICONS GÉNÉRALES === */
+.material-icons {
+  vertical-align: middle;
+  color: #FFC300;
+  font-size: 36px; /* taille par défaut */
+}
+
+/* Variantes de taille */
+.material-icons.small-icon {
+  font-size: 24px;
+}
+
+.material-icons.medium-icon {
+  font-size: 36px;
+}
+
+.material-icons.large-icon {
+  font-size: 60px;
+}
+
+.material-icons.xlarge-icon {
+  font-size: 120px;
+}
+
+/*=== CAMERA  ===*/
+
+.photo-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.photo-controls img {
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  max-width: 100%;
+}
+
+.photo-controls button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  border-radius: 6px;font-family: 'Roboto Slab', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+  
+
+/*=== ICON TITLE  ===*/
+.blue-icon {
+  color: #5d9cf0;
+  vertical-align: middle;
+  margin-right: 8px;
+  font-size: 32px; /* optionnel, ajuste selon le rendu */
+}
+
+.yellow-icon {
+  color: #fae17a;
+  vertical-align: middle;
+  margin-right: 8px;
+  font-size: 32px; /* optionnel, ajuste selon le rendu */
+}
+
+/*=== EXCEL BUTTON  ===*/
+.excel-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: 'Roboto Slab', serif;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/*=== RESET BUTTON ===*/
+.reset-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #f0f0f0;;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: 'Roboto Slab', serif;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.reset-button:hover {
+  background-color: #e0e0e0;
+}
+.center-button {
+  display: flex;
+  justify-content: center;
+}
+
+
+#erasmus-logo {
+  width: 150px;  /* Modifie ici la taille */
+  height: auto;
+  display: block;
+  margin: 10px 0;
+}
+
+

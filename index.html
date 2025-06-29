@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CLILview</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="IMG/favicon.ico" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+
+  <header>
+    <nav id="menu-bar" class="navbar">
+		<button data-section="Home">
+        <span class="material-icons">home</span> Home
+      </button>
+      <button data-section="presentation">
+        <span class="material-icons">info</span> Presentation
+      </button>
+      <button data-section="teacher">
+        <span class="material-icons">school</span> Teacher
+      </button>
+      <button data-section="students">
+        <span class="material-icons">group</span> Students
+      </button>
+      <button data-section="inclusion">
+        <span class="material-icons">handshake</span> Inclusion
+      </button>
+      <button data-section="end">
+        <span class="material-icons">file_download</span> End
+      </button>
+    </nav>
+	<div id="tools-container"></div>
+  </header>
+
+  <main id="content" class="container">
+    <p>Welcome to CLILview, an application made by the BETTER Team !</p>
+  </main>
+
+  <script src="app.js"></script>
+  
+<script>
+function openCameraPopup() {
+  const popup = window.open('', '_blank', 'width=700,height=600');
+  popup.document.write(`
+    <html>
+    <head>
+      <title>Take Photo</title>
+      <style>
+        body { text-align: center; font-family: sans-serif; margin-top: 20px; }
+        video { width: 640px; height: auto; border-radius: 10px; }
+        button { margin-top: 10px; font-size: 16px; padding: 10px 20px; }
+      </style>
+    </head>
+    <body>
+      <h2>Smile! 📸</h2>
+      <video id="video" autoplay></video>
+      <canvas id="canvas" style="display:none;"></canvas>
+      <br />
+      <button id="captureBtn">Capture</button>
+
+      <script>
+        let stream = null;
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const captureBtn = document.getElementById('captureBtn');
+
+        navigator.mediaDevices.getUserMedia({ video: true }).then((mediaStream) => {
+          stream = mediaStream;
+          video.srcObject = stream;
+        }).catch((err) => {
+          document.body.innerHTML = '<p style="color:red;">Camera error: ' + err.message + '</p>';
+        });
+
+        captureBtn.addEventListener('click', () => {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          canvas.getContext('2d').drawImage(video, 0, 0);
+
+        
+          const dataUrl = canvas.toDataURL('image/jpeg');
+          const link = document.createElement('a');
+          link.href = dataUrl;
+          link.download = 'photo_' + new Date().toISOString().replace(/[:.]/g, '-') + '.jpg';
+          link.click();
+
+          // Fenêtre laissée ouverte, pas de fermeture automatique
+        });
+      <\/script>
+    </body>
+    </html>
+  `);
+}
+</script>
+
+  
+</body>
+</html>

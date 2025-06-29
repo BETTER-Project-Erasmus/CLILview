@@ -1,0 +1,80 @@
+		<div class="header-container">
+		  <h1><span class="material-icons large-icon">group</span> Students</h1>
+		  
+		  <!-- Logo en haut à droite -->
+		  <div class="logo-container">
+			<img src="IMG/logo.png" 
+				 alt="Logo" 
+				 class="logo"
+				 onerror="this.style.display='none'">
+		  </div>
+		</div>
+
+		<div id="students-section" data-section="students">
+		
+		  <section>
+			<h2>
+			<span class="material-icons blue-icon medium-icon">settings</span>
+			Languages used
+			</h2>
+			<label><input type="checkbox" id="language_studied" name="languages_used"  value="Language studied" /> Language studied</label><br />
+			<label><input type="checkbox" id="mother_tongue" name="languages_used" value="Mother tongue" /> Mother tongue</label><br />
+			<label><input type="checkbox" id="other_language" name="languages_used" value="Other languages" /> Other languages</label>
+		  </section>
+
+		  <section>
+			<h2>
+			<span class="material-icons blue-icon medium-icon">settings</span>
+			Form of students' work
+			</h2>
+			<label><input type="checkbox" id="all_together" name="form_work" value="All together" /> All together</label><br />
+			<label><input type="checkbox" id="small_group" name="form_work" value="Small group" /> Small group</label><br />
+			<label><input type="checkbox" id="pair_work" name="form_work" value="Pair work" /> Pair work</label><br />
+			<label><input type="checkbox" id="individual" name="form_work" value="Individual" /> Individual</label>
+		  </section>
+
+		  <section>
+			<h2>
+			<span class="material-icons blue-icon medium-icon">settings</span>
+			Type of activities
+			</h2>
+			<textarea id="activities" name="activities" placeholder="Describe the activities..." rows="3"></textarea>
+		  </section>
+		  
+		  <section>
+			<h2>
+			<span class="material-icons yellow-icon medium-icon">archive</span>
+			Final task
+			</h2>
+			<textarea id="FinalTask" name="FinalTask" placeholder="What is the final task ?" rows="3"></textarea>
+		  </section>
+
+		  <section>
+			<h2>
+			<span class="material-icons blue-icon medium-icon">settings</span>
+			Is there any written activity?
+			</h2>
+			<label><input type="radio" id="writtenYes" name="written" value="Yes" onchange="toggleTextarea('written', 'written-desc', 'Yes')" /> Yes</label><br />
+			<label><input type="radio" id="writtenNo" name="written" value="No" onchange="toggleTextarea('written', 'written-desc', 'Yes')" /> No</label>
+		  </section>
+
+		  <div id="written-desc" style="display:none;">
+			<label for="written-description"><strong>Short description:</strong></label><br />
+			<textarea id="written-description" rows="2"></textarea>
+		  </div>
+
+		  <section>
+			<h2>
+			<span class="material-icons blue-icon medium-icon">settings</span>
+			Are there any tools to help students?
+			</h2>
+			<label><input type="radio" id="helpYes" name="help" value="Yes" onchange="toggleTextarea('help', 'tools-list', 'Yes')" /> Yes</label><br />
+			<label><input type="radio" id="helpNo" name="help" value="No" onchange="toggleTextarea('help', 'tools-list', 'Yes')" /> No</label>
+		  </section>
+
+		  <div id="tools-list" style="display:none;">
+			<label for="tools"><strong>Short list:</strong></label><br />
+			<textarea id="tools" rows="2"></textarea>
+		  </div>
+
+		</div>
