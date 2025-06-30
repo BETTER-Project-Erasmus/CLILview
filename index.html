@@ -43,58 +43,94 @@
   
 <script>
 function openCameraPopup() {
-  const popup = window.open('', '_blank', 'width=700,height=600');
-  popup.document.write(`
-    <html>
-    <head>
-      <title>Take Photo</title>
-      <style>
-        body { text-align: center; font-family: sans-serif; margin-top: 20px; }
-        video { width: 640px; height: auto; border-radius: 10px; }
-        button { margin-top: 10px; font-size: 16px; padding: 10px 20px; }
-      </style>
-    </head>
-    <body>
-      <h2>Smile! 📸</h2>
-      <video id="video" autoplay></video>
-      <canvas id="canvas" style="display:none;"></canvas>
-      <br />
-      <button id="captureBtn">Capture</button>
+  const popup = window.open('', '_blank', 'width=700,height=550');
 
-      <script>
-        let stream = null;
-        const video = document.getElementById('video');
-        const canvas = document.getElementById('canvas');
-        const captureBtn = document.getElementById('captureBtn');
+  popup.document.open();
+  popup.document.write(`<!DOCTYPE html>
+<html>
+<head>
+  <title>Take Photo</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+    button {
+      font-size: 1.2em;
+      padding: 8px 16px;
+      margin: 10px;
+      cursor: pointer;
+    }
+    video {
+      width: 100%;
+      max-width: 640px;
+      border-radius: 10px;
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+  <button id="switchCamera">Switch Camera</button>
+  <br>
+  <video id="video" autoplay playsinline></video>
+  <br>
+  <button id="capture">Capture</button>
 
-        navigator.mediaDevices.getUserMedia({ video: true }).then((mediaStream) => {
-          stream = mediaStream;
-          video.srcObject = stream;
-        }).catch((err) => {
-          document.body.innerHTML = '<p style="color:red;">Camera error: ' + err.message + '</p>';
-        });
+  <canvas id="canvas" style="display:none;"></canvas>
 
-        captureBtn.addEventListener('click', () => {
-          canvas.width = video.videoWidth;
-          canvas.height = video.videoHeight;
-          canvas.getContext('2d').drawImage(video, 0, 0);
+  <script>
+    let stream = null;
+    let useFrontCamera = false;
 
-        
-          const dataUrl = canvas.toDataURL('image/jpeg');
-          const link = document.createElement('a');
-          link.href = dataUrl;
-          link.download = 'photo_' + new Date().toISOString().replace(/[:.]/g, '-') + '.jpg';
-          link.click();
+    const video = document.getElementById('video');
+    const switchBtn = document.getElementById('switchCamera');
+    const captureBtn = document.getElementById('capture');
+    const canvas = document.getElementById('canvas');
 
-          // Fenêtre laissée ouverte, pas de fermeture automatique
-        });
-      <\/script>
-    </body>
-    </html>
-  `);
+    async function startCamera() {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+
+      const constraints = {
+        video: {
+          facingMode: useFrontCamera ? 'user' : 'environment'
+        }
+      };
+
+      try {
+        stream = await navigator.mediaDevices.getUserMedia(constraints);
+        video.srcObject = stream;
+      } catch (err) {
+        document.body.innerHTML = '<p style="color:red;">Camera error: ' + err.message + '</p>';
+      }
+    }
+
+    switchBtn.onclick = () => {
+      useFrontCamera = !useFrontCamera;
+      startCamera();
+    };
+
+    captureBtn.onclick = () => {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+      const dataUrl = canvas.toDataURL('image/jpeg');
+
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = 'photo_' + new Date().toISOString().replace(/[:.]/g, '-') + '.jpg';
+      link.click();
+    };
+
+    startCamera();
+  <\/script>
+</body>
+</html>`);
+  popup.document.close();
 }
 </script>
-
   
 </body>
 </html>
