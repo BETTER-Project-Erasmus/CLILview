@@ -47,17 +47,20 @@
 
 
 <!-- 📸 Photo capture -->
-<div class="photo-controls container">
-   <button onclick="openCameraPopup()">
-     <span class="material-icons">photo_camera</span>
-     Take a photo
-   </button>
+	<div class="photo-controls container">
+	   <button onclick="openCameraPopup()">
+       <span class="material-icons">photo_camera</span>
+       Take a photo
+       </button>
+	</div>
+
 </div>
 
 <script>
 function openCameraPopup() {
-  const popup = window.open('', '_blank', 'width=700,height=550');
+  const popup = window.open('about:blank?cb=' + Date.now(), '_blank', 'width=700,height=550');
 
+  popup.document.open();
   popup.document.write(`<!DOCTYPE html>
 <html>
 <head>
@@ -88,10 +91,11 @@ function openCameraPopup() {
   <video id="video" autoplay playsinline></video>
   <br>
   <button id="capture">Capture</button>
-
   <canvas id="canvas" style="display:none;"></canvas>
 
   <script>
+    console.log("✅ Nouveau code injecté dans le popup");
+
     let stream = null;
     let useFrontCamera = false;
 
@@ -138,7 +142,15 @@ function openCameraPopup() {
 
     startCamera();
   <\/script>
+  
+  <script>
+function openCameraPopup() {
+  window.open('popup_camera.html?cb=' + Date.now(), '_blank', 'width=700,height=550');
+}
+</script>
+	
 </body>
 </html>`);
+  popup.document.close();
 }
 </script>
