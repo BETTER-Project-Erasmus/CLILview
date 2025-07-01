@@ -443,3 +443,22 @@ textarea {
   display: block;
   margin: 10px 0;
 }
+
+.home-button {
+  background: #fae17a;
+  border: none;
+  padding: 12px 18px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.3s ease;
+  color: black;
+  text-decoration: none
+}
+.home-button:hover {
+  background: #ffd000;
+}
