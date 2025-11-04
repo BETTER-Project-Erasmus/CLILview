@@ -69,19 +69,35 @@
 		  <section>
 			<h2>
 			<span class="material-icons yellow-icon medium-icon">archive</span>
-			New words / words taught (list or type of words) :
+			New words / words taught (type of words) :
 			</h2>
 			<textarea id="words" name="words" placeholder="Write words taught..." rows="3"></textarea>
 		  </section>
 
 		  <section>
-			<h2>
-			<span class="material-icons blue-icon medium-icon">settings</span>
-			How many sentences need to be used to manage the activity ?
-			</h2>
-			<textarea id="NumberSentences" name="NumberSentences" placeholder="Write a number" rows="3"></textarea>
-		  </section>
-		  
+  			<h2>
+    		<span class="material-icons blue-icon medium-icon">settings</span>
+    		What are the instructions like ? (1 = Short / 4 = Long )
+  			</h2>
+  			<div id="levelRadios">
+  		    <label>
+      		<input type="radio" name="Instructions" value="1" checked>
+      		1
+    		</label>
+    		<label>
+      		<input type="radio" name="Instructions" value="2">
+      		2
+    		</label>
+    		<label>
+      		<input type="radio" name="Instructions" value="3">
+      		3
+    		</label>
+    		<label>
+      		<input type="radio" name="Instructions" value="4">
+      		4
+    		</label>
+  			</div>
+		</section>		  
 		   <section>
 			<h2>
 			<span class="material-icons yellow-icon medium-icon">archive</span>
@@ -90,15 +106,66 @@
 			<textarea id="sentences" name="sentences" placeholder="Enter sentences taught..." rows="3"></textarea>
 		  </section>
 
+				<section>
+  			<h2>
+    		<span class="material-icons blue-icon medium-icon">settings</span>
+    		How clear are they ?(1 = not clear / 4 = very clear)
+  			</h2>
+  			<div id="levelRadios">
+  		    <label>
+      		<input type="radio" name="clear" value="1" checked>
+      		1
+    		</label>
+    		<label>
+      		<input type="radio" name="clear" value="2">
+      		2
+    		</label>
+    		<label>
+      		<input type="radio" name="clear" value="3">
+      		3
+    		</label>
+    		<label>
+      		<input type="radio" name="clear" value="4">
+      		4
+    		</label>
+  			</div>
+		</section>
+
+				<section>
+  			<h2>
+    		<span class="material-icons blue-icon medium-icon">settings</span>
+    		How many steps are there (1 = a few / 4 = many)
+  			</h2>
+  			<div id="levelRadios">
+  		    <label>
+      		<input type="radio" name="steps" value="1" checked>
+      		1
+    		</label>
+    		<label>
+      		<input type="radio" name="steps" value="2">
+      		2
+    		</label>
+    		<label>
+      		<input type="radio" name="steps" value="3">
+      		3
+    		</label>
+    		<label>
+      		<input type="radio" name="steps" value="4">
+      		4
+    		</label>
+  			</div>
+		</section>
+
 		  <section>
 			<h2>
 			<span class="material-icons blue-icon medium-icon">settings</span>
-			How does the teacher work to involve all the students ?
+			What pedagogical strategies does the teacher use to involve all the students (pictures, objects, mime, demonstration ...) ?
 			</h2>
 			<textarea id="involve" name="involve" placeholder="Describe strategies..." rows="3"></textarea>
 		  </section>
 
 
 		</div>
+
 
 
