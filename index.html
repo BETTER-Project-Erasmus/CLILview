@@ -132,19 +132,5 @@ function openCameraPopup() {
 }
 </script>
 
-  <script>
-    const btn = document.getElementById("levelBtn");
-    const hidden = document.getElementById("level");
-
-    if (btn) {
-      btn.addEventListener("click", () => {
-        let value = Number(hidden.value);
-        value = (value % 4) + 1;   // 1→4 boucle
-        hidden.value = value;
-        btn.textContent = "Level : " + value;
-      });
-    }
-  </script>
-	
 </body>
 </html>
