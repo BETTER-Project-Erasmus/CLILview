@@ -30,16 +30,32 @@
 			<textarea id="langUse" name="langUse" placeholder="Describe usage of the language..." rows="3"></textarea>
 		  </section>
 
-		  <section>
-    	 	<h2>
-      	 	<span class="material-icons blue-icon medium-icon">settings</span>
-      	 	Level (1 = beginner / 4 = expert)
-    	  	</h2>
-    	  	<button id="levelBtn" type="button">Level : 1</button>
-    	  	<input type="hidden" id="level" name="level" value="1">
-  		  </section>
-
-		  <section>
+		<section>
+  			<h2>
+    		<span class="material-icons blue-icon medium-icon">settings</span>
+    		Level (1 = beginner / 4 = expert)
+  			</h2>
+  			<div id="levelRadios">
+  		    <label>
+      		<input type="radio" name="level" value="1" checked>
+      		1
+    		</label>
+    		<label>
+      		<input type="radio" name="level" value="2">
+      		2
+    		</label>
+    		<label>
+      		<input type="radio" name="level" value="3">
+      		3
+    		</label>
+    		<label>
+      		<input type="radio" name="level" value="4">
+      		4
+    		</label>
+  			</div>
+		</section>
+		  
+		<section>
 			<h2>
 			<span class="material-icons blue-icon medium-icon">settings</span>
 			How many new words had been taught ?
@@ -81,3 +97,4 @@
 
 
 		</div>
+
