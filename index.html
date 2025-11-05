@@ -132,5 +132,18 @@ function openCameraPopup() {
 }
 </script>
 
+<script>
+document.querySelectorAll('input[type="radio"]').forEach(radio => {
+  const saved = localStorage.getItem(radio.name);
+  if (saved && radio.value === saved) {
+    radio.checked = true;
+  }
+
+  radio.addEventListener("change", () => {
+    localStorage.setItem(radio.name, radio.value);
+  });
+});
+</script>
+
 </body>
 </html>
