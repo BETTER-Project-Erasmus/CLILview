@@ -109,16 +109,6 @@ document.addEventListener('change', function (event) {
   }
 });
 
-// --- RESTAURATION des boutons radio ---
-window.addEventListener('DOMContentLoaded', function () {
-  const radios = document.querySelectorAll('input[type="radio"]');
-  radios.forEach(radio => {
-    const savedValue = localStorage.getItem(radio.name);
-    if (savedValue === radio.value) {
-      radio.checked = true;
-    }
-  });
-});
 
 
 // === CHARGEMENT DES SECTIONS ===
@@ -134,6 +124,11 @@ function loadSection(newSection) {
     .then(html => {
       const content = document.getElementById("content");
       content.innerHTML = html;
+	  
+		content.querySelectorAll('input[type="radio"]').forEach(radio => {
+      const savedValue = localStorage.getItem(radio.name);
+      if (savedValue === radio.value) radio.checked = true;
+    });
 
       loadData(newSection);
 
