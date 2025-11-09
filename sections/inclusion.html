@@ -67,10 +67,18 @@
   function updateInclusionVisibility(sectionRoot) {
     const q1 = sectionRoot.querySelector('input[name="sameObjective"]:checked');
     const q2 = sectionRoot.querySelector('input[name="sameActivities"]:checked');
-    const hasNo = (q1 && q1.value === "No") || (q2 && q2.value === "No");
+
+    // Affichage des textarea selon les réponses "No"
+    document.getElementById('differentObjectives').style.display =
+      (q1 && q1.value === "No") ? 'block' : 'none';
+    document.getElementById('differentActivities').style.display =
+      (q2 && q2.value === "No") ? 'block' : 'none';
+
+    // Affichage des sections hidden si au moins un "No" est sélectionné
+    const showHiddenSections = (q1 && q1.value === "No") || (q2 && q2.value === "No");
 
     sectionRoot.querySelectorAll('section.hidden').forEach(sec => {
-      sec.classList.toggle('hidden', !hasNo);
+      sec.classList.toggle('hidden', !showHiddenSections);
     });
   }
 
@@ -78,11 +86,13 @@
     const sectionRoot = document.getElementById('inclusion-section');
     if (!sectionRoot) return false;
 
-    sectionRoot.querySelectorAll('input[name="sameObjective"], input[name="sameActivities"]').forEach(radio => {
-      radio.addEventListener('change', () => updateInclusionVisibility(sectionRoot));
-    });
+    // Écoute des radios
+    sectionRoot.querySelectorAll('input[name="sameObjective"], input[name="sameActivities"]')
+      .forEach(radio => {
+        radio.addEventListener('change', () => updateInclusionVisibility(sectionRoot));
+      });
 
-    // petit délai pour attendre que loadData() ait remis les valeurs
+    // Mise à jour initiale (après loadData si nécessaire)
     setTimeout(() => updateInclusionVisibility(sectionRoot), 40);
     return true;
   }
@@ -95,6 +105,8 @@
   }
 })();
 </script>
+
+
 
 
 
