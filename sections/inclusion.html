@@ -63,24 +63,38 @@
     </div>
 
 <script>
-function updateInclusionVisibility() {
-  const q1 = document.querySelector('input[name="sameObjective"]:checked');
-  const q2 = document.querySelector('input[name="sameActivities"]:checked');
+(function () {
+  function updateInclusionVisibility(sectionRoot) {
+    const q1 = sectionRoot.querySelector('input[name="sameObjective"]:checked');
+    const q2 = sectionRoot.querySelector('input[name="sameActivities"]:checked');
+    const hasNo = (q1 && q1.value === "No") || (q2 && q2.value === "No");
 
-  const hasNo = (q1 && q1.value === "No") || (q2 && q2.value === "No");
+    sectionRoot.querySelectorAll('section.hidden').forEach(sec => {
+      sec.classList.toggle('hidden', !hasNo);
+    });
+  }
 
-  document.querySelectorAll('#inclusion-section section.hidden').forEach(sec => {
-    sec.classList.toggle('hidden', !hasNo);
-  });
-}
+  function initWhenReady() {
+    const sectionRoot = document.getElementById('inclusion-section');
+    if (!sectionRoot) return false;
 
-document.querySelectorAll('input[name="sameObjective"], input[name="sameActivities"]').forEach(radio => {
-  radio.addEventListener('change', updateInclusionVisibility);
-});
+    sectionRoot.querySelectorAll('input[name="sameObjective"], input[name="sameActivities"]').forEach(radio => {
+      radio.addEventListener('change', () => updateInclusionVisibility(sectionRoot));
+    });
 
-setTimeout(updateInclusionVisibility, 50);
+    // petit délai pour attendre que loadData() ait remis les valeurs
+    setTimeout(() => updateInclusionVisibility(sectionRoot), 40);
+    return true;
+  }
+
+  if (!initWhenReady()) {
+    const observer = new MutationObserver((mutations, obs) => {
+      if (initWhenReady()) obs.disconnect();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+})();
 </script>
-
 
 
 
