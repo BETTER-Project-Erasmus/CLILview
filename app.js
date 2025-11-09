@@ -64,14 +64,23 @@ function saveData(section) {
   const inputs = document.querySelectorAll("#content input, #content textarea, #content select");
   const data = {};
   inputs.forEach(input => {
-    if (input.type === "checkbox" || input.type === "radio") {
+
+    if (input.type === "checkbox") {
       data[input.id] = input.checked;
-    } else {
+    }
+    else if (input.type === "radio") {
+      if (input.checked) {
+        data[input.name] = input.value;  // <--- clé = name, valeur = value
+      }
+    }
+    else {
       data[input.id] = input.value;
     }
+
   });
   localStorage.setItem(`clilview-${section}`, JSON.stringify(data));
 }
+
 
 function loadData(section) {
   const dataStr = localStorage.getItem(`clilview-${section}`);
@@ -328,22 +337,27 @@ window.exportToExcel = function () {
         const savedData = saved ? JSON.parse(saved) : {};
 
         inputs.forEach(input => {
+          let key = `${section}_${input.id || input.name}`;
+
           let val;
-          if (input.type === "checkbox" || input.type === "radio") {
+
+          if (input.type === "checkbox") {
             val = savedData[input.id] ? "YES" : "NO";
-          } else {
+          }
+          else if (input.type === "radio") {
+            val = savedData[input.name] || "";
+          }
+          else {
             val = savedData[input.id] ?? "";
           }
 
-          const key = `${section}_${input.id || "no-id"}`;
           allData[key] = val;
         });
       });
   });
 
   Promise.all(promises).then(() => {
-    // Organiser les données comme une seule ligne dans une feuille
-    const row = [allData]; // Tableau contenant une seule ligne d'objet
+    const row = [allData];
     const ws = XLSX.utils.json_to_sheet(row);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Data");
