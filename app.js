@@ -158,10 +158,13 @@ function loadSection(newSection) {
 }
 
 function initInclusionPage() {
+  // Textareas au "No" pour les deux premières questions
   toggleTextarea('sameObjective', 'differentObjectives', 'No');
   toggleTextarea('sameActivities', 'differentActivities', 'No');
+  // Textarea au "Yes" pour une autre question (ex: tools)
   toggleTextarea('tools', 'differentTools', 'Yes');
 
+  // Écouteurs pour les radios
   document.querySelectorAll('input[name="sameObjective"]').forEach(r => {
     r.addEventListener('change', () => toggleTextarea('sameObjective', 'differentObjectives', 'No'));
   });
@@ -171,7 +174,31 @@ function initInclusionPage() {
   document.querySelectorAll('input[name="tools"]').forEach(r => {
     r.addEventListener('change', () => toggleTextarea('tools', 'differentTools', 'Yes'));
   });
+
+  // --- Affichage des sections hidden (questions 3-4-5) ---
+  function updateHiddenSections() {
+    const q1 = document.querySelector('input[name="sameObjective"]:checked');
+    const q2 = document.querySelector('input[name="sameActivities"]:checked');
+    const showSections = (q1 && q1.value === "No") || (q2 && q2.value === "No");
+
+    document.querySelectorAll('#inclusion-section section.hidden').forEach(sec => {
+      if (showSections) {
+        sec.classList.remove('hidden');
+      } else {
+        sec.classList.add('hidden');
+      }
+    });
+  }
+
+  // Lancer au chargement pour tenir compte des valeurs déjà sauvegardées
+  updateHiddenSections();
+
+  // Lancer à chaque changement des deux premières questions
+  document.querySelectorAll('input[name="sameObjective"], input[name="sameActivities"]').forEach(r => {
+    r.addEventListener('change', updateHiddenSections);
+  });
 }
+
 
 function initStudentsPage() {
   toggleTextarea('written', 'written-desc', 'Yes');
