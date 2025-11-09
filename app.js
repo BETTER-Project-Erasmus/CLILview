@@ -181,13 +181,13 @@ function initInclusionPage() {
     const q2 = document.querySelector('input[name="sameActivities"]:checked');
     const showSections = (q1 && q1.value === "No") || (q2 && q2.value === "No");
 
-    document.querySelectorAll('#inclusion-section section.hidden').forEach(sec => {
-      if (showSections) {
-        sec.classList.remove('hidden');
-      } else {
-        sec.classList.add('hidden');
-      }
-    });
+    document.querySelectorAll('#inclusion-section section[data-hidden]').forEach(sec => {
+ 	 if (showSections) {
+    sec.classList.remove('hidden');
+ 	 } else {
+    sec.classList.add('hidden');
+  	 }
+  	});
   }
 
   // Lancer au chargement pour tenir compte des valeurs déjà sauvegardées
