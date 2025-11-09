@@ -32,7 +32,7 @@
 		<textarea id="differentActivities" placeholder="Take a picture or describe the activities that are different" style="display:none;"></textarea>
 	  </section>
 
-	  <section>
+	  <section class="hidden">
 		<h2>
 		<span class="material-icons blue-icon medium-icon">settings</span>
 		What pedagogical strategies does the teacher use to adapt the content to help students?
@@ -41,7 +41,7 @@
 		<textarea id="adaptContent" placeholder="Free text zone"></textarea>
 	  </section>
 
-	  <section>
+	  <section class="hidden">
 		<h2>
 		<span class="material-icons blue-icon medium-icon">settings</span>
 		Are there special tools to help students?
@@ -51,7 +51,7 @@
 		<textarea id="differentTools" placeholder="Describe the tools used" style="display:none;"></textarea>
 	  </section>
 
-	  <section>
+	  <section class="hidden">
 		<h2>
 		<span class="material-icons blue-icon medium-icon">settings</span>
 		What pedagogical strategies does the teacher use to include all the students?
@@ -59,9 +59,26 @@
 		<label for="IncludeStudents">Describe briefly.</label><br>
 		<textarea id="adaptContent" placeholder="Free text zone"></textarea>
 	  </section>
-
-	  
+  
     </div>
+
+<script>
+function updateInclusionVisibility() {
+  const q1 = document.querySelector('input[name="sameObjective"]:checked');
+  const q2 = document.querySelector('input[name="sameActivities"]:checked');
+
+  const hasNo = (q1 && q1.value === "No") || (q2 && q2.value === "No");
+
+  document.querySelectorAll('#inclusion-section section:nth-of-type(n+3)').forEach(sec => {
+    sec.classList.toggle('hidden', !hasNo);
+  });
+}
+
+document.querySelectorAll('input[name="sameObjective"], input[name="sameActivities"]').forEach(radio => {
+  radio.addEventListener('change', updateInclusionVisibility);
+});
+</script>
+
 
 
 
