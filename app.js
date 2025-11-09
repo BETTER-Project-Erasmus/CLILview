@@ -157,6 +157,21 @@ function loadSection(newSection) {
     });
 }
 
+  // --- Affichage des sections hidden (questions 3-4-5) ---
+  function updateHiddenSections() {
+    const q1 = document.querySelector('input[name="sameObjective"]:checked');
+    const q2 = document.querySelector('input[name="sameActivities"]:checked');
+    const showSections = (q1 && q1.value === "No") || (q2 && q2.value === "No");
+
+    document.querySelectorAll('#inclusion-section section.hidden').forEach(sec => {
+      if (showSections) {
+        sec.classList.remove('hidden');
+      } else {
+        sec.classList.add('hidden');
+      }
+    });
+  }
+
 function initInclusionPage() {
   // Textareas au "No" pour les deux premières questions
   toggleTextarea('sameObjective', 'differentObjectives', 'No');
