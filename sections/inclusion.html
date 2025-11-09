@@ -78,7 +78,11 @@
     const showHiddenSections = (q1 && q1.value === "No") || (q2 && q2.value === "No");
 
     sectionRoot.querySelectorAll('section.hidden').forEach(sec => {
-      sec.classList.toggle('hidden', !showHiddenSections);
+      if (showHiddenSections) {
+        sec.classList.remove('hidden');
+      } else {
+        sec.classList.add('hidden');
+      }
     });
   }
 
@@ -105,6 +109,8 @@
   }
 })();
 </script>
+
+
 
 
 
