@@ -158,39 +158,43 @@ function loadSection(newSection) {
 }
 
 function initInclusionPage() {
-  // Textareas au "No" pour les deux premières questions
+  // Gestion des textarea
   toggleTextarea('sameObjective', 'differentObjectives', 'No');
   toggleTextarea('sameActivities', 'differentActivities', 'No');
-  // Textarea au "Yes" pour une autre question (ex: tools)
   toggleTextarea('tools', 'differentTools', 'Yes');
 
-  // Écouteurs pour les radios
+  // Écouteurs pour les textarea
   document.querySelectorAll('input[name="sameObjective"]').forEach(r => {
-    r.addEventListener('change', () => toggleTextarea('sameObjective', 'differentObjectives', 'No'));
+    r.addEventListener('change', () => {
+      toggleTextarea('sameObjective', 'differentObjectives', 'No');
+      updateHiddenSections();
+    });
   });
   document.querySelectorAll('input[name="sameActivities"]').forEach(r => {
-    r.addEventListener('change', () => toggleTextarea('sameActivities', 'differentActivities', 'No'));
+    r.addEventListener('change', () => {
+      toggleTextarea('sameActivities', 'differentActivities', 'No');
+      updateHiddenSections();
+    });
   });
   document.querySelectorAll('input[name="tools"]').forEach(r => {
     r.addEventListener('change', () => toggleTextarea('tools', 'differentTools', 'Yes'));
   });
 
-  // --- Affichage des sections hidden (questions 3-4-5) ---
-  function updateHiddenSections() {
-    const q1 = document.querySelector('input[name="sameObjective"]:checked');
-    const q2 = document.querySelector('input[name="sameActivities"]:checked');
-    const showSections = (q1 && q1.value === "No") || (q2 && q2.value === "No");
+  // Mise à jour initiale des sections cachées
+  updateHiddenSections();
+}
 
-    document.querySelectorAll('#inclusion-section section[data-hidden]').forEach(sec => {
- 	 if (showSections) {
-    sec.classList.remove('hidden');
- 	 } else {
-    sec.classList.add('hidden');
-  	 }
-  	});
-  }
+// Nouvelle fonction pour gérer l'affichage des sections cachées
+function updateHiddenSections() {
+  const q1 = document.querySelector('input[name="sameObjective"]:checked');
+  const q2 = document.querySelector('input[name="sameActivities"]:checked');
+  const showHiddenSections = (q1 && q1.value === "No") || (q2 && q2.value === "No");
+  document.querySelectorAll('section.hidden').forEach(sec => {
+    sec.style.display = showHiddenSections ? 'block' : 'none';
+  });
+}
 
-  // Lancer au chargement pour tenir compte des valeurs déjà sauvegardées
+// Lancer au chargement pour tenir compte des valeurs déjà sauvegardées
   updateHiddenSections();
 
   // Lancer à chaque changement des deux premières questions
