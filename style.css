@@ -462,3 +462,7 @@ textarea {
 .home-button:hover {
   background: #ffd000;
 }
+
+.hidden {
+  display: none;
+}
