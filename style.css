@@ -466,3 +466,53 @@ textarea {
 .hidden {
   display: none;
 }
+
+.help {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #0d4b9f;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+}
+
+.help-text {
+  display: none;
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  background-color: #333;
+  color: white;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  z-index: 100;
+}
+
+/* flèche */
+.help-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
+/* affichage quand actif */
+.help.active .help-text {
+  display: block;
+}
+
