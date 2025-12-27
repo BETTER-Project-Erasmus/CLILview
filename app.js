@@ -389,3 +389,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.toggleTextarea = toggleTextarea;
 });
+
+// === HELP ===
+document.addEventListener("click", function (e) {
+  // ferme tous les tooltips ouverts
+  document.querySelectorAll(".help").forEach(h => h.classList.remove("active"));
+
+  // ouvre celui cliqué
+  const help = e.target.closest(".help");
+  if (help) {
+    help.classList.add("active");
+    e.stopPropagation();
+  }
+});
+
