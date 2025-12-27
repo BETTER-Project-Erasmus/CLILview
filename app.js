@@ -392,13 +392,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // === HELP ===
 document.addEventListener("click", function (e) {
-  // ferme tous les tooltips ouverts
-  document.querySelectorAll(".help").forEach(h => h.classList.remove("active"));
-
-  // ouvre celui cliqué
   const help = e.target.closest(".help");
+
+  // Ferme toutes les aides sauf celle cliquée
+  document.querySelectorAll(".help").forEach(h => {
+    if (h !== help) h.classList.remove("active");
+  });
+
+  // Toggle sur celle cliquée
   if (help) {
-    help.classList.add("active");
+    help.classList.toggle("active");
     e.stopPropagation();
   }
 });
