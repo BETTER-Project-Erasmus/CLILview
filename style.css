@@ -224,9 +224,10 @@ main {
 /* === HOME TITLE === */
 #home-content .home-title {
   font-family: "Bangers", serif;
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 600;
   text-align: center;
+  color: #5d9cf0;
 }
 
 /* === FORMS === */
