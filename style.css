@@ -221,6 +221,14 @@ main {
   text-align: center;
 }
 
+/* === HOME TITLE === */
+#home-content .home-title {
+  font-family: "Roboto Slab", serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-align: center;
+}
+
 /* === FORMS === */
 form label {
   display: block;
