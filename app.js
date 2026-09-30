@@ -394,6 +394,99 @@ function reset() {
   }
 }
 
+// === PHOTO (popup caméra) ===
+// Placée ici (dans app.js, chargé normalement) et non dans tools.html : un
+// <script> injecté via innerHTML (voir loadTools) ne s'exécute jamais dans
+// un navigateur, donc une fonction définie là-bas ne serait jamais utilisable.
+window.openCameraPopup = function () {
+  const popup = window.open('about:blank?cb=' + Date.now(), '_blank', 'width=700,height=550');
+
+  popup.document.open();
+  popup.document.write(`<!DOCTYPE html>
+<html>
+<head>
+  <title>Take Photo</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+    button {
+      font-size: 1.2em;
+      padding: 8px 16px;
+      margin: 10px;
+      cursor: pointer;
+    }
+    video {
+      width: 100%;
+      max-width: 640px;
+      border-radius: 10px;
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+  <button id="switchCamera">Switch Camera</button>
+  <br>
+  <video id="video" autoplay playsinline></video>
+  <br>
+  <button id="capture">Capture</button>
+  <canvas id="canvas" style="display:none;"></canvas>
+
+  <script>
+    let stream = null;
+    let useFrontCamera = false;
+
+    const video = document.getElementById('video');
+    const switchBtn = document.getElementById('switchCamera');
+    const captureBtn = document.getElementById('capture');
+    const canvas = document.getElementById('canvas');
+
+    async function startCamera() {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+
+      const constraints = {
+        video: {
+          facingMode: useFrontCamera ? 'user' : 'environment'
+        }
+      };
+
+      try {
+        stream = await navigator.mediaDevices.getUserMedia(constraints);
+        video.srcObject = stream;
+      } catch (err) {
+        document.body.innerHTML = '<p style="color:red;">Camera error: ' + err.message + '</p>';
+      }
+    }
+
+    switchBtn.onclick = () => {
+      useFrontCamera = !useFrontCamera;
+      startCamera();
+    };
+
+    captureBtn.onclick = () => {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+      const dataUrl = canvas.toDataURL('image/jpeg');
+
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = 'photo_' + new Date().toISOString().replace(/[:.]/g, '-') + '.jpg';
+      link.click();
+    };
+
+    startCamera();
+  <\/script>
+
+</body>
+</html>`);
+  popup.document.close();
+};
+
 // === RAPPORT PDF (impression) ===
 
 // Intitulés lisibles des questions, validés avec l'utilisateur, dans l'ordre
