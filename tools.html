@@ -1,6 +1,6 @@
 <div class="tools-bar">
 
-  <!-- 🕒 Timers -->
+  <!-- ðŸ•’ Timers -->
  <div id="timers">
   <div class="timer-container">
     <span class="material-icons teacher-icon">school</span>
@@ -19,7 +19,7 @@
 </div>
 
 
-  <!-- 🎤 Audio buttons -->
+  <!-- ðŸŽ¤ Audio buttons -->
   <div class="audio-controls container">
   <button id="btnStartRecording">
     <span class="material-icons" style="color: red;">fiber_manual_record</span>
@@ -46,7 +46,7 @@
   </div>
 
 
-<!-- 📸 Photo capture -->
+<!-- ðŸ“¸ Photo capture -->
 	<div class="photo-controls container">
 	   <button onclick="openCameraPopup()">
        <span class="material-icons">photo_camera</span>
@@ -94,8 +94,6 @@ function openCameraPopup() {
   <canvas id="canvas" style="display:none;"></canvas>
 
   <script>
-    console.log("✅ Nouveau code injecté dans le popup");
-
     let stream = null;
     let useFrontCamera = false;
 
@@ -142,13 +140,7 @@ function openCameraPopup() {
 
     startCamera();
   <\/script>
-  
-  <script>
-function openCameraPopup() {
-  window.open('popup_camera.html?cb=' + Date.now(), '_blank', 'width=700,height=550');
-}
-</script>
-	
+
 </body>
 </html>`);
   popup.document.close();
