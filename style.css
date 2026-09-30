@@ -525,3 +525,115 @@ textarea {
   display: block;
 }
 
+
+/* ==========================================================================
+   Rapport PDF (impression) — CLILview
+   Le tableau #pdf-report est rempli par generatePdfReport() dans app.js.
+   thead/tfoot se répètent automatiquement sur chaque page imprimée : c'est
+   la technique standard, fiable sur tous les navigateurs (Chrome, Firefox).
+   ========================================================================== */
+
+#pdf-report {
+  display: none;
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Roboto Slab', serif;
+  color: #222;
+}
+
+@media print {
+  /* On masque toute l'appli et on n'affiche que le rapport */
+  body.printing-report > header,
+  body.printing-report > main {
+    display: none !important;
+  }
+
+  body.printing-report #pdf-report {
+    display: table;
+  }
+
+  @page {
+    size: A4;
+    margin: 22mm 14mm 20mm 14mm;
+  }
+}
+
+/* --- En-tête, répété sur chaque page --- */
+#pdf-report thead td {
+  padding: 0 0 6px 0;
+}
+
+.pdf-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 4px;
+}
+
+.pdf-header-bar img {
+  height: 26px;
+  width: auto;
+}
+
+.pdf-header-text {
+  flex: 1;
+  text-align: center;
+  font-size: 8px;
+  color: #555;
+  padding: 0 10px;
+  line-height: 1.3;
+}
+
+.pdf-report-title {
+  text-align: center;
+  font-family: 'Roboto Slab', serif;
+  font-size: 22px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 6px 0 2px 0;
+}
+
+/* --- Pied de page, répété sur chaque page --- */
+#pdf-report tfoot td {
+  padding-top: 6px;
+}
+
+.pdf-footer-bar {
+  border-top: 1px solid #ccc;
+  padding-top: 4px;
+  text-align: center;
+  font-size: 8px;
+  color: #888;
+}
+
+/* --- Corps du rapport --- */
+.pdf-section-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #2c3e50;
+  background: #f2f2f2;
+  padding: 6px 8px;
+  margin-top: 14px;
+  border-left: 4px solid #2c3e50;
+  page-break-after: avoid;
+}
+
+.pdf-question-block {
+  margin: 8px 0;
+  page-break-inside: avoid;
+}
+
+.pdf-question-label {
+  font-weight: bold;
+  font-size: 11px;
+  color: #333;
+}
+
+.pdf-question-answer {
+  font-size: 11px;
+  color: #111;
+  white-space: pre-wrap;
+  margin-top: 2px;
+  padding-left: 4px;
+}
